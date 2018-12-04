@@ -83,11 +83,14 @@
   </div>
 </div>
 
+<form action="/create_bookmark" method="post">
 <div class="row">
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
-        <th>Name</th>
+        <th>The very best...</th>
+        <th>is at...</th>
+        <th> </th>
         <th>Cuisine</th>
         <th>Actions</th>
       </tr>
@@ -95,6 +98,14 @@
       <% @dishes.each do |dish| %>
       <tr>
         <td><%= dish.name %></td>
+        <td>
+          <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name, @dish.try(:venue_id)), :class => "form-control") %>
+        </td>
+        <td>
+          <button class="btn btn-block btn-outline-secondary">
+            Bookmark
+          </button>
+        </td>
         <td>
           <% if dish.cuisine.present? %>
             <a href="/cuisines/<%= dish.cuisine.id %>">
@@ -113,3 +124,4 @@
     <%= paginate @dishes, theme: 'twitter-bootstrap-4' %>
   </div>
 </div>
+</form>
