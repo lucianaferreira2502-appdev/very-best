@@ -2,6 +2,7 @@
   <h1>
     Dishes
     <a href="/dishes/new" class="btn btn-lg btn-success">New Dish</a>
+    <a href="/venues/new" class="btn btn-lg btn-success">Add a new venue</a>
   </h1>
 </div><div class="row mb-1">
   <div class="col-md-12">
@@ -92,18 +93,23 @@
         <th>is at...</th>
         <th> </th>
         <th>Cuisine</th>
-        <th>Actions</th>
       </tr>
 
       <% @dishes.each do |dish| %>
       <tr>
-        <td><%= dish.name %></td>
+        <td>
+          <% if dish.present? %>
+            <a href="/dishes/<%= dish.id %>">
+              <%= dish.name %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name, @dish.try(:venue_id)), :class => "form-control") %>
         </td>
         <td>
           <button class="btn btn-block btn-outline-secondary">
-            Bookmark
+            Create Bookmark
           </button>
         </td>
         <td>
@@ -112,11 +118,6 @@
               <%= dish.cuisine.name %>
             </a>
           <% end %>
-        </td>
-        <td>
-          <a href="/dishes/<%= dish.id %>" class="btn btn-primary">Show</a>
-          <a href="/dishes/<%= dish.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_dish/<%= dish.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
         </td>
       </tr>
       <% end %>
