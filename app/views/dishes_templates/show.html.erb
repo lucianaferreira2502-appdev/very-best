@@ -1,93 +1,97 @@
+<div class="col-md-6 ">
+  <div class="row  justify-content-md-centerrow">
+
 <div class="page-header">
   <h3>You Loved the <%= @dish.name %> at...</h3>
 </div>
 
-<div class="row">
-  <div class="col-md-12 ">
-    <dl class="dl-horizontal">
-    <dt>Cuisine</dt>
-      <dd>
-        <% if @dish.cuisine.present? %>
-          <a href="/cuisines/<%= @dish.cuisine_id %>">
-            <%= @dish.cuisine.name %>
-          </a>
-        <% end %>
-      </dd>
 
-    </dl>
-
-    
-  </div>
-</div>
-
-
-<li class="list-group-item">
-
-      <form action="/create_bookmark" class="form-inline" method="post">
-
-      <!-- Label and input for dish_id -->
-      <input type="hidden" name="dish_id" value="<%= @dish.id %>">
-
-      <!-- Label and input for venue_id -->
-      <div class="form-control-sm">
-        <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
-      </div>
-      
-      <button class="btn btn-primary btn-group float-right">
-        <i class="fa fa-heart ">
-                </i>
-      </button>
-      <!-- Label and input for user_id -->
-      <input type="hidden" name="user_id" value="<%= current_user.id %>">
-
-      <!-- Label and input for notes -->
-      <div class="form-group">
-        
-
-        <input type="hidden" name="notes" placeholder="Notes" class="form-control" rows="3"></textarea>
-      </div>
-
-      
-    </form>
-      </li>
-<!-- A Dish has many bookmarks -->
-
-<div class="row">
-  <div class="col-md-12">
-      <p>
-    <ul class="list-group">
-   
-      <% @dish.bookmarks.each do |bookmark| %>
-        <li class="list-group-item">
-          <a href="/bookmarks/<%= bookmark.id %>">
-            <%= bookmark.venue.name %>
-          </a>
-          <div class="btn-group btn-group-xs float-right">
-           
-            <a href="/bookmarks/<%= bookmark.id %>/edit" >
-              <i class="fa fa-fw fa-edit"></i>
+    <div class="col-md-12 ">
+      <dl class="dl-horizontal">
+      <dt>Cuisine</dt>
+        <dd>
+          <% if @dish.cuisine.present? %>
+            <a href="/cuisines/<%= @dish.cuisine_id %>">
+              <%= @dish.cuisine.name %>
             </a>
-            <a href="/delete_bookmark/<%= bookmark.id %>" rel="nofollow">
-              <i class="fa fa-fw fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-        </p>
-      <% end %>
+          <% end %>
+        </dd>
+  
+      </dl>
+  
       
-      <div class="btn btn-secondary btn-lg btn-block">
-      <a href="/dishes" class="btn btn-secondary">
-        <i class="fa fa-chevron-left"></i></i>
-      </a>
-     
-      </a>
     </div>
-
-      
-    </ul>
   </div>
-</div>
-
-
-
-
+  
+  
+  <li class="list-group-item">
+  
+        <form action="/create_bookmark" class="form-inline" method="post">
+  
+        <!-- Label and input for dish_id -->
+        <input type="hidden" name="dish_id" value="<%= @dish.id %>">
+  
+        <!-- Label and input for venue_id -->
+        <div class="form-control-sm">
+          <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
+        </div>
+        
+        <button class="btn btn-primary btn-group float-right">
+          <i class="fa fa-heart ">
+                  </i>
+        </button>
+        <!-- Label and input for user_id -->
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+  
+        <!-- Label and input for notes -->
+        <div class="form-group">
+          
+  
+          <input type="hidden" name="notes" placeholder="Notes" class="form-control" rows="3"></textarea>
+        </div>
+  
+        
+      </form>
+        </li>
+  <!-- A Dish has many bookmarks -->
+  
+  <div class="row">
+    <div class="col-md-12">
+        <p>
+      <ul class="list-group">
+     
+        <% @dish.bookmarks.each do |bookmark| %>
+          <li class="list-group-item">
+            <a href="/bookmarks/<%= bookmark.id %>">
+              <%= bookmark.venue.name %>
+            </a>
+            <div class="btn-group btn-group-xs float-right">
+             
+              <a href="/bookmarks/<%= bookmark.id %>/edit" >
+                <i class="fa fa-fw fa-edit"></i>
+              </a>
+              <a href="/delete_bookmark/<%= bookmark.id %>" rel="nofollow">
+                <i class="fa fa-fw fa-trash-o"></i>
+              </a>
+            </div>
+          </li>
+          </p>
+        <% end %>
+        
+        <div class="btn btn-secondary btn-lg btn-block">
+        <a href="/dishes" class="btn btn-secondary">
+          <i class="fa fa-chevron-left"></i></i>
+        </a>
+       
+        </a>
+      </div>
+  
+        
+      </ul>
+    </div>
+  </div>
+  
+  
+  
+  
+  
