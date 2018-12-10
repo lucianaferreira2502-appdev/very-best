@@ -1,7 +1,7 @@
 <div class="page-header">
   <h1>
     Dishes
-    <a href="/dishes/new" class="btn btn-lg btn-success">New Dish</a>
+    
     <a href="/venues/new" class="btn btn-lg btn-success">Add a new venue</a>
   </h1>
 </div><div class="row mb-1">
@@ -16,7 +16,9 @@
 
     <div class="form-group">
       <%= f.label :cuisine_name, "Cuisine name" %>
-      <%= f.text_field :cuisine_name_cont, :class => "form-control", :placeholder => "Cuisine name" %>
+       
+      <%= f.text_field :cuisine_name_cont, :class => "form-checkbox", :placeholder => "Cuisine name" %>
+    
     </div>
 
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
@@ -53,8 +55,9 @@
           <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name, @dish.try(:venue_id)), :class => "form-control") %>
         </td>
         <td>
-          <button class="btn btn-block btn-outline-secondary">
-            Create Bookmark
+          <button class="btn btn-primary btn-group">
+            <i class="fa fa-heart ">
+                  </i>
           </button>
           
         </td>
