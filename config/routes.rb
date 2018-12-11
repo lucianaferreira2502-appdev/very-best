@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Routes for the Bookmark resource:
   # CREATE
   get "/bookmarks/new", :controller => "bookmarks", :action => "new"
+  get "/create_bookmark", :controller => "bookmarks", :action => "create"
   post "/create_bookmark", :controller => "bookmarks", :action => "create"
 
   # READ

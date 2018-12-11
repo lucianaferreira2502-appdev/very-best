@@ -15,10 +15,13 @@
   </div>
 
     <div class="form-group">
-      <%= f.label :cuisine_name, "Cuisine name" %>
-       
-      <%= f.text_field :cuisine_name_cont, :class => "form-checkbox", :placeholder => "Cuisine name" %>
-    
+        <%= f.label :cuisine_id_eq, "Cuisine" %>  
+          <% Cuisine.all.each do |cuisine| %>
+            <p>
+          <label> <%= check_box_tag('q[cuisine_id_eq_any][]', cuisine.id ) %>
+           <%= cuisine.name %> </label>
+          <% end %>
+          </p>
     </div>
 
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
@@ -31,36 +34,49 @@
   </div>
 </div>
 
-<form action="/bookmarks/new" method="get">
+
 <div class="row">
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
         <th>The very best...</th>
         <th>is at...</th>
-        <th> </th>
+       
         <th>Cuisine</th>
       </tr>
 
       <% @dishes.each do |dish| %>
       <tr>
         <td>
-          <% if dish.present? %>
-            <a href="/dishes/<%= dish.id %>">
-              <%= dish.name %>
-            </a>
+          <a href = "/dishes/<%=dish.id%>" >
+          <%= dish.name %>
+          </a>
+        </td>
+
+        <td>
+          <% Bookmark.where(:user_id => current_user.id).each do |bookmark|  %>
+              <% if bookmark.dish.id == dish.id %>
+                <a href = "/venues/<%=bookmark.venue.id%>" >
+                  <%=bookmark.venue.name%>
+                </a>
+              <%end %>
+            <%end%>   
+            <% if Bookmark.where(:user_id => current_user.id, :dish_id => dish.id).count == 0 %>
+             <form action="/create_bookmark" >
+                <input type="hidden" name="user_id" value="<%= current_user.id %>">
+                <input type="hidden" name="dish_id" value="<%= dish.id %>">
+                
+                <div class="form-group">
+                    <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
+              </div>
+              <button class="btn btn-group btn-primary btn-primary-small float-right">
+                    <i class ="fa fa-heart float-right"></i>
+              </button>
+            </form>
+  
           <% end %>
         </td>
-        <td>
-          <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name, @dish.try(:venue_id)), :class => "form-control") %>
-        </td>
-        <td>
-          <button class="btn btn-primary btn-group">
-            <i class="fa fa-heart ">
-                  </i>
-          </button>
-          
-        </td>
+        
         <td>
           <% if dish.cuisine.present? %>
             <a href="/cuisines/<%= dish.cuisine.id %>">
@@ -74,4 +90,3 @@
     <%= paginate @dishes, theme: 'twitter-bootstrap-4' %>
   </div>
 </div>
-</form>
