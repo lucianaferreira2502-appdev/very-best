@@ -1,29 +1,28 @@
-<div class="col-md-6 ">
-  <div class="row  justify-content-md-centerrow">
-
-<div class="page-header">
-  <h3>You Loved the <%= @dish.name %> at...</h3>
-</div>
+<div class="container mt-4">
 
 
-    <div class="col-md-12 ">
-      <dl class="dl-horizontal">
-      <dt>Cuisine</dt>
-        <dd>
-          <% if @dish.cuisine.present? %>
-            <a href="/cuisines/<%= @dish.cuisine_id %>">
-              <%= @dish.cuisine.name %>
-            </a>
-          <% end %>
-        </dd>
-  
-      </dl>
-  
-      
+  <div class="row  mt-2 mb-1 justify-content-md-center">
+    <div class="col-md-6 ">
+      <div class="card-header">
+       
+          <h3>You Loved the <%= @dish.name %> at...
+          
+              <div class="badge badge-primary float-right">
+              <% if @dish.cuisine.present? %>
+                    
+                      <%= @dish.cuisine.name %>
+                    </a>
+                  <% end %>
+              </div>
+           
+        </h3>
+      </div>
     </div>
   </div>
   
   
+<div class="row  mt-2 mb-1 justify-content-md-center">
+  <div class="col-md-6 "> 
   <li class="list-group-item">
   
         <form action="/create_bookmark" class="form-inline" method="post">
@@ -91,7 +90,7 @@
     </div>
   </div>
   
-  
+</div>  
   
   
   
