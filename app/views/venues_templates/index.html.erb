@@ -61,6 +61,7 @@
         <td>
           <% if venue.neighborhood.present? %>
             <%= venue.neighborhood.name %>
+            <%= venue.address_latitude %>
             </a>
           <% end %>
         </td>
@@ -85,8 +86,9 @@
 <script>
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'location_map'}}, function(){
-    markers = handler.addMarkers(<%= raw @location_hash.to_json %>);
+    markers = handler.addMarkers(<% raw @hash.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
+    handler.getMap().setZoom(6);
   });
 </script>
