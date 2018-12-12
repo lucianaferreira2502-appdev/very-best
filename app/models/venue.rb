@@ -3,8 +3,8 @@ class Venue < ApplicationRecord
 
   def geocode_address
     if !Rails.env.test? && self.address.present?
-      url = "http://maps.googleapis.com/maps/api/geocode/json?address=#{URI.encode(self.address)}"
-
+      url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{URI.encode(self.address)}&key=AIzaSyA5qwIlcKjijP_Ptmv46mk4cCjuWhSzS78"
+      #I've manually added in my own API above
       raw_data = open(url).read
 
       parsed_data = JSON.parse(raw_data)
