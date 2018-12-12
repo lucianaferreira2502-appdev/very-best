@@ -27,6 +27,9 @@
   
         <form action="/create_bookmark" class="form-inline" method="post">
   
+        <!-- Hidden input for authenticity token to protect from forgery -->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+  
         <!-- Label and input for dish_id -->
         <input type="hidden" name="dish_id" value="<%= @dish.id %>">
   
@@ -59,7 +62,7 @@
         <p>
       <ul class="list-group">
      
-        <% @dish.bookmarks.each do |bookmark| %>
+        <% @dish.bookmarks.where(:user_id => current_user.id).each do |bookmark| %>
           <li class="list-group-item">
             <a href="/bookmarks/<%= bookmark.id %>">
               <%= bookmark.venue.name %>
@@ -90,7 +93,46 @@
     </div>
   </div>
   
-</div>  
+ 
   
-  
-  
+<!-- A Dish has many fans -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Fans
+      </li>
+
+      <% @dish.fans.each do |user| %>
+        <li class="list-group-item">
+          <a href="/users/<%= user.id %>">
+            <%= user.username %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A Dish has many specialists -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Specialists
+      </li>
+
+      <% @dish.specialists.each do |venue| %>
+        <li class="list-group-item">
+          <a href="/venues/<%= venue.id %>">
+           <p><%= venue.name %></p>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+</div> 
